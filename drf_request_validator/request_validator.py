@@ -22,7 +22,7 @@ def request_validator(schema: dict):
                             + f"expected {schema_type_key}, but recieved {type(data_value)}"
                         }
                     )
-            return func(request)
+                return func(request)
 
         return inner
 
