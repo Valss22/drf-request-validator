@@ -1,1 +1,1 @@
-from drf_request_validator.main import request_validator
+from drf_request_validator.decorator import request_validator
