@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "drf-request-validator"
+version = "0.1.0"
+description = ""
+authors = ["vladislavshokorov <valsshokorov@gmail.com>"]
+readme = "README.md"
+packages = [{include = "drf_request_validator"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+djangorestframework = "^3.14.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
