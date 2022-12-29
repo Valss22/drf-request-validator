@@ -1,5 +1,5 @@
-from drf_request_validator.request_validator import request_validator
-import drf_request_validator
+from drf_request_validator import request_validator
+from drf_request_validator import main
 from pytest import MonkeyPatch
 
 
@@ -17,9 +17,7 @@ request_data = {"name": "Vlad", "age": 20}
 
 
 def test_request_example(monkeypatch: MonkeyPatch):
-    monkeypatch.setattr(
-        drf_request_validator.request_validator, "Response", mock_response
-    )
+    monkeypatch.setattr(main, "Response", mock_response)
 
     @request_validator(schema)
     def mock_http_handler(request=MockRequest(request_data)) -> mock_response:
