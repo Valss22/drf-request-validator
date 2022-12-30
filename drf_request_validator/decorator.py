@@ -11,18 +11,19 @@ def request_validator(schema: dict):
                 if schema_key != data_key:
                     return Response(
                         {
-                            "msg": "Request body validation error, "
-                            + f"expected {schema_key}, but recieved {data_key}"
+                            "error": "Request body key error",
+                            # "detail": f"Expected {schema_key}, but recieved {data_key}",
                         }
                     )
                 if schema_type_key is not type(data_value):
                     return Response(
                         {
-                            "msg": "Request body validation error, "
-                            + f"expected {schema_type_key}, but recieved {type(data_value)}"
+                            "error": "Request body type error",
+                            # "detail": f"Expected {schema_type_key}"
+                            # + f"but recieved {type(data_value)}",
                         }
                     )
-                return func(request)
+            return func(request)
 
         return inner
 
