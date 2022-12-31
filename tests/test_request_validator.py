@@ -19,19 +19,21 @@ CORRECT_REQUEST_DATA = {"name": "Vlad", "age": 20}
 CORRECT_RESPONSE = {**CORRECT_REQUEST_DATA}
 
 UNCORRECT_KEY_REQUEST_DATA = {"name": "Vlad", "agge": 20}
-UNCORRECT_KEY_RESPONSE = {"error": "Request body key error"}
+UNCORRECT_KEY_RESPONSE = {"errors": ["Field 'age' is expected, but 'agge' is recieved"]}
 
 UNCORRECT_TYPE_REQUEST_DATA = {"name": "Vlad", "age": "twenty"}
-UNCORRECT_TYPE_RESPONSE = {"error": "Request body type error"}
+UNCORRECT_TYPE_RESPONSE = {
+    "errors": [f"It's expected the field 'age' has the type {int}, but recieved {str}"]
+}
 
-test_data = [
+TEST_DATA = [
     (SCHEMA, CORRECT_REQUEST_DATA, CORRECT_RESPONSE),
     (SCHEMA, UNCORRECT_KEY_REQUEST_DATA, UNCORRECT_KEY_RESPONSE),
     (SCHEMA, UNCORRECT_TYPE_REQUEST_DATA, UNCORRECT_TYPE_RESPONSE),
 ]
 
 
-@pytest.mark.parametrize("schema,request_data,response", test_data)
+@pytest.mark.parametrize("schema,request_data,response", TEST_DATA)
 def test_decorator(schema, request_data, response, monkeypatch: MonkeyPatch):
     monkeypatch.setattr(decorator, "Response", mock_response)
 
