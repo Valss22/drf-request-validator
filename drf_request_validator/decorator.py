@@ -1,6 +1,7 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
 from typing import TypedDict
+from .enums import ErrorMessage
 
 
 class ErrorDetail(TypedDict):
@@ -19,21 +20,21 @@ def request_validator(schema: dict):
                 schema.items(), request.data.items()
             ):
                 if schema_key != data_key:
-                    error_detail: ErrorDetail = {}
-                    error_detail["key"] = data_key
-                    error_detail["msg"] = "key error"
-                    error_detail["detail"] = f"key '{schema_key}' is expected"
-                    error_details.append(error_detail)
-
+                    error_details.append(
+                        {
+                            "key": data_key,
+                            "msg": ErrorMessage.KEY,
+                            "detail": f"key '{schema_key}' is expected",
+                        }
+                    )
                 if schema_type_key is not type(data_value):
-                    error_detail: ErrorDetail = {}
-                    error_detail["key"] = data_key
-                    error_detail["msg"] = "type error"
-                    error_detail[
-                        "detail"
-                    ] = f"It's expected has the type {schema_type_key}, but recieved {type(data_value)}"
-                    error_details.append(error_detail)
-
+                    error_details.append(
+                        {
+                            "key": data_key,
+                            "msg": ErrorMessage.TYPE,
+                            "detail": f"It's expected has the type {schema_type_key}, but recieved {type(data_value)}",
+                        }
+                    )
             if error_details:
                 return Response(error_details)
             return func(request)
