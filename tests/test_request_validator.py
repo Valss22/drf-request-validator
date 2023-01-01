@@ -20,13 +20,17 @@ CORRECT_RESPONSE = {**CORRECT_REQUEST_DATA}
 
 UNCORRECT_KEY_REQUEST_DATA = {"name": "Vlad", "agge": 20}
 UNCORRECT_KEY_RESPONSE = [
-    {"field": "agge", "msg": "field name error", "detail": "'age' is expected"}
+    {"key": "agge", "msg": "key error", "detail": "key 'age' is expected"}
 ]
 
 UNCORRECT_TYPE_REQUEST_DATA = {"name": "Vlad", "age": "twenty"}
-UNCORRECT_TYPE_RESPONSE = {
-    "errors": [f"It's expected the field 'age' has the type {int}, but recieved {str}"]
-}
+UNCORRECT_TYPE_RESPONSE = [
+    {
+        "key": "age",
+        "msg": "type error",
+        "detail": f"It's expected has the type {int}, but recieved {str}",
+    }
+]
 
 # MISSING_KEY_REQUEST_DATA = {"name": "Danila"}
 # MISSING_KEY_RESPONSE = {**MISSING_KEY_REQUEST_DATA}
