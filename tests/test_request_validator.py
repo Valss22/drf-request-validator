@@ -9,7 +9,7 @@ class MockRequest:
         self.data = data
 
 
-def mock_response(data: dict) -> dict:
+def mock_response(data: dict | list) -> dict:
     return data
 
 
@@ -19,17 +19,23 @@ CORRECT_REQUEST_DATA = {"name": "Vlad", "age": 20}
 CORRECT_RESPONSE = {**CORRECT_REQUEST_DATA}
 
 UNCORRECT_KEY_REQUEST_DATA = {"name": "Vlad", "agge": 20}
-UNCORRECT_KEY_RESPONSE = {"errors": ["Field 'age' is expected, but 'agge' is recieved"]}
+UNCORRECT_KEY_RESPONSE = [
+    {"field": "agge", "msg": "field name error", "detail": "'age' is expected"}
+]
 
 UNCORRECT_TYPE_REQUEST_DATA = {"name": "Vlad", "age": "twenty"}
 UNCORRECT_TYPE_RESPONSE = {
     "errors": [f"It's expected the field 'age' has the type {int}, but recieved {str}"]
 }
 
+# MISSING_KEY_REQUEST_DATA = {"name": "Danila"}
+# MISSING_KEY_RESPONSE = {**MISSING_KEY_REQUEST_DATA}
+
 TEST_DATA = [
     (SCHEMA, CORRECT_REQUEST_DATA, CORRECT_RESPONSE),
     (SCHEMA, UNCORRECT_KEY_REQUEST_DATA, UNCORRECT_KEY_RESPONSE),
     (SCHEMA, UNCORRECT_TYPE_REQUEST_DATA, UNCORRECT_TYPE_RESPONSE),
+    # (SCHEMA, MISSING_KEY_REQUEST_DATA, MISSING_KEY_RESPONSE),
 ]
 
 
