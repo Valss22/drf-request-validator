@@ -23,7 +23,7 @@ def request_validator(schema: dict):
                     error_details.append(
                         {
                             "key": data_key,
-                            "msg": ErrorMessage.KEY,
+                            "msg": ErrorMessage.INVALID_KEY,
                             "detail": f"key '{schema_key}' is expected",
                         }
                     )

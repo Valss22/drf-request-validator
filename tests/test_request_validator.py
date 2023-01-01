@@ -1,5 +1,6 @@
 from drf_request_validator import request_validator
 from drf_request_validator import decorator
+from drf_request_validator.enums import ErrorMessage
 from pytest import MonkeyPatch
 import pytest
 
@@ -20,14 +21,14 @@ CORRECT_RESPONSE = {**CORRECT_REQUEST_DATA}
 
 UNCORRECT_KEY_REQUEST_DATA = {"name": "Vlad", "agge": 20}
 UNCORRECT_KEY_RESPONSE = [
-    {"key": "agge", "msg": "key error", "detail": "key 'age' is expected"}
+    {"key": "agge", "msg": ErrorMessage.INVALID_KEY, "detail": "key 'age' is expected"}
 ]
 
 UNCORRECT_TYPE_REQUEST_DATA = {"name": "Vlad", "age": "twenty"}
 UNCORRECT_TYPE_RESPONSE = [
     {
         "key": "age",
-        "msg": "type error",
+        "msg": ErrorMessage.TYPE,
         "detail": f"It's expected has the type {int}, but recieved {str}",
     }
 ]
