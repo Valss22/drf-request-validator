@@ -33,14 +33,16 @@ UNCORRECT_TYPE_RESPONSE = [
     }
 ]
 
-# MISSING_KEY_REQUEST_DATA = {"name": "Danila"}
-# MISSING_KEY_RESPONSE = {**MISSING_KEY_REQUEST_DATA}
+MISSING_KEY_REQUEST_DATA = {"name": "Danila"}
+MISSING_KEY_RESPONSE = [
+    {"msg": ErrorMessage.MISSING_KEY, "detail": f"Missing key 'age'"}
+]
 
 TEST_DATA = [
     (SCHEMA, CORRECT_REQUEST_DATA, CORRECT_RESPONSE),
     (SCHEMA, UNCORRECT_KEY_REQUEST_DATA, UNCORRECT_KEY_RESPONSE),
     (SCHEMA, UNCORRECT_TYPE_REQUEST_DATA, UNCORRECT_TYPE_RESPONSE),
-    # (SCHEMA, MISSING_KEY_REQUEST_DATA, MISSING_KEY_RESPONSE),
+    (SCHEMA, MISSING_KEY_REQUEST_DATA, MISSING_KEY_RESPONSE),
 ]
 
 
@@ -52,4 +54,5 @@ def test_decorator(schema, request_data, response, monkeypatch: MonkeyPatch):
     def mock_http_handler(request=MockRequest(request_data)) -> mock_response:
         return mock_response(request.data)
 
+    print(mock_http_handler(MockRequest(request_data)))
     assert mock_http_handler(MockRequest(request_data)) == response
