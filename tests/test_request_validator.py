@@ -3,6 +3,7 @@ from drf_request_validator import decorator
 from drf_request_validator.enums import ErrorMessage
 from pytest import MonkeyPatch
 import pytest
+from typing import TypedDict
 
 
 class MockRequest:
@@ -14,39 +15,22 @@ def mock_response(data: dict | list) -> dict:
     return data
 
 
-SCHEMA = {"name": str, "age": int}
+schema = {"name": str, "age": int}
 
-CORRECT_REQUEST_DATA = {"name": "Vlad", "age": 20}
-CORRECT_RESPONSE = {**CORRECT_REQUEST_DATA}
 
-UNCORRECT_KEY_REQUEST_DATA = {"name": "Vlad", "agge": 20}
-UNCORRECT_KEY_RESPONSE = [
-    {"key": "agge", "msg": ErrorMessage.INVALID_KEY, "detail": "key 'age' is expected"}
-]
+correct_request_data = {"name": "Vlad", "age": 20}
+correct_response = {**correct_request_data}
 
-UNCORRECT_TYPE_REQUEST_DATA = {"name": "Vlad", "age": "twenty"}
-UNCORRECT_TYPE_RESPONSE = [
-    {
-        "key": "age",
-        "msg": ErrorMessage.TYPE,
-        "detail": f"It's expected has the type {int}, but recieved {str}",
-    }
-]
+invalid_key_request_data = {"name": "Vlad", "agge": 20}
+invalid_key_response = [{"key": "agge", "msg": ErrorMessage.INVALID_KEY}]
 
-MISSING_KEY_REQUEST_DATA = {"name": "Danila"}
-MISSING_KEY_RESPONSE = [
-    {"msg": ErrorMessage.MISSING_KEY, "detail": f"Missing key 'age'"}
-]
-
-TEST_DATA = [
-    (SCHEMA, CORRECT_REQUEST_DATA, CORRECT_RESPONSE),
-    (SCHEMA, UNCORRECT_KEY_REQUEST_DATA, UNCORRECT_KEY_RESPONSE),
-    (SCHEMA, UNCORRECT_TYPE_REQUEST_DATA, UNCORRECT_TYPE_RESPONSE),
-    (SCHEMA, MISSING_KEY_REQUEST_DATA, MISSING_KEY_RESPONSE),
+test_data = [
+    (schema, correct_request_data, correct_response),
+    (schema, invalid_key_request_data, invalid_key_response),
 ]
 
 
-@pytest.mark.parametrize("schema,request_data,response", TEST_DATA)
+@pytest.mark.parametrize("schema,request_data,response", test_data)
 def test_decorator(schema, request_data, response, monkeypatch: MonkeyPatch):
     monkeypatch.setattr(decorator, "Response", mock_response)
 

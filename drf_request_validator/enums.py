@@ -10,3 +10,4 @@ class ErrorMessage(BaseEnum):
     INVALID_KEY = "invalid key"
     TYPE = "type error"
     MISSING_KEY = "missing key"
+    EXTRA_KEY = "extra key"
