@@ -15,12 +15,16 @@ def request_validator(schema: dict):
 
             error_details: list[ErrorDetail] = []
 
-            for req_key in request.data.keys():
+            for req_key, req_value in request.data.items():
                 if req_key not in list(schema.keys()):
                     error_details.append(
                         ErrorDetail(key=req_key, msg=ErrorMessage.INVALID_KEY)
                     )
-
+                else:
+                    if schema[req_key] is not type(req_value):
+                        error_details.append(
+                            ErrorDetail(key=req_key, msg=ErrorMessage.INVALID_TYPE)
+                        )
             if error_details:
                 return Response(error_details)
             return func(request)

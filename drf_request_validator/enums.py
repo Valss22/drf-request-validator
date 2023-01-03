@@ -8,6 +8,6 @@ class BaseEnum(str, Enum):
 
 class ErrorMessage(BaseEnum):
     INVALID_KEY = "invalid key"
-    TYPE = "type error"
+    INVALID_TYPE = "invalid type"
     MISSING_KEY = "missing key"
     EXTRA_KEY = "extra key"
