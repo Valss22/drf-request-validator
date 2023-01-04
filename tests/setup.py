@@ -13,10 +13,13 @@ def invalid_type_response(key: str, expected_key_type) -> dict:
     }
 
 
+success_response = {"msg": "ok"}
+
 schema = {"name": str, "age": int}
+schema2 = {"name": str, "age": {"month": int, "year": int}}
 
 test_data = [
-    (schema, {"name": "Vlad", "age": 20}, {"name": "Vlad", "age": 20}),
+    (schema, {"name": "Vlad", "age": 20}, success_response),
     (schema, {"naame": "Rudolf", "age": 21}, [invalid_key_response("naame")]),
     (schema, {"name": "Ruslan", "age": "twenty"}, [invalid_type_response("age", int)]),
     (
@@ -28,5 +31,10 @@ test_data = [
         schema,
         {"naame": "Sergej", "agge": 20},
         [invalid_key_response("naame"), invalid_key_response("agge")],
+    ),
+    (
+        schema2,
+        {"name": "Igor", "age": {"month": 7, "year": 2000}},
+        success_response,
     ),
 ]
