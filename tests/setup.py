@@ -17,6 +17,7 @@ success_response = {"msg": "ok"}
 
 schema = {"name": str, "age": int}
 schema2 = {"name": str, "age": {"month": int, "year": int}}
+schema3 = {"items": list[{"a": str, "b": list[{"c": int}]}]}
 
 test_data = [
     (schema, {"name": "Vlad", "age": 20}, success_response),
@@ -39,7 +40,8 @@ test_data = [
     ),
     (
         schema2,
-        {"name": "Igor", "age": {"month": "seven", "year": "two"}},
-        [invalid_type_response("month", int), invalid_type_response("year", int)],
+        {"name": "Igor", "age": {"mnth": "seven", "year": "two"}},
+        [invalid_key_response("mnth"), invalid_type_response("year", int)],
     ),
+    (schema3, {"items": []}, success_response),
 ]
