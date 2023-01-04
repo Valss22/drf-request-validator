@@ -37,4 +37,9 @@ test_data = [
         {"name": "Igor", "age": {"month": 7, "year": 2000}},
         success_response,
     ),
+    (
+        schema2,
+        {"name": "Igor", "age": {"month": "seven", "year": "two"}},
+        [invalid_type_response("month", int), invalid_type_response("year", int)],
+    ),
 ]

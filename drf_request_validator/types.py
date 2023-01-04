@@ -10,8 +10,6 @@ class BaseEnum(str, Enum):
 class ErrorMessage(BaseEnum):
     INVALID_KEY = "invalid key"
     INVALID_TYPE = "invalid type"
-    MISSING_KEY = "missing key"
-    EXTRA_KEY = "extra key"
 
 
 class ErrorDetail(TypedDict):
