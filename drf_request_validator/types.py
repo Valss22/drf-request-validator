@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import TypedDict
 
 
 class BaseEnum(str, Enum):
@@ -11,3 +12,9 @@ class ErrorMessage(BaseEnum):
     INVALID_TYPE = "invalid type"
     MISSING_KEY = "missing key"
     EXTRA_KEY = "extra key"
+
+
+class ErrorDetail(TypedDict):
+    key: str
+    msg: str
+    detail: str

@@ -1,13 +1,6 @@
 from rest_framework.request import Request
 from rest_framework.response import Response
-from typing import TypedDict
-from .enums import ErrorMessage
-
-
-class ErrorDetail(TypedDict):
-    key: str
-    msg: str
-    detail: str
+from drf_request_validator.types import ErrorMessage, ErrorDetail
 
 
 def request_validator(schema: dict):
