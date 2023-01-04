@@ -24,7 +24,13 @@ invalid_key_request_data = {"name": "Vlad", "agge": 20}
 invalid_key_response = [{"key": "agge", "msg": ErrorMessage.INVALID_KEY}]
 
 invalid_type_request_data = {"name": "Vlad", "age": "twenty"}
-invalid_type_response = [{"key": "age", "msg": ErrorMessage.INVALID_TYPE}]
+invalid_type_response = [
+    {
+        "key": "age",
+        "msg": ErrorMessage.INVALID_TYPE,
+        "detail": f"type {int} is expected",
+    }
+]
 
 test_data = [
     (schema, correct_request_data, correct_response),

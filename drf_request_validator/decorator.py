@@ -7,6 +7,7 @@ from .enums import ErrorMessage
 class ErrorDetail(TypedDict):
     key: str
     msg: str
+    detail: str
 
 
 def request_validator(schema: dict):
@@ -23,7 +24,11 @@ def request_validator(schema: dict):
                 else:
                     if schema[req_key] is not type(req_value):
                         error_details.append(
-                            ErrorDetail(key=req_key, msg=ErrorMessage.INVALID_TYPE)
+                            ErrorDetail(
+                                key=req_key,
+                                msg=ErrorMessage.INVALID_TYPE,
+                                detail=f"type {schema[req_key]} is expected",
+                            )
                         )
             if error_details:
                 return Response(error_details)
