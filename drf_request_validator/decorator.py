@@ -12,7 +12,9 @@ def validation_iteration(req_data: dict, schema_data: dict, error_details: list)
                 validation_iteration(
                     req_data[req_key], schema_data[req_key], error_details
                 )
-                break
+                continue
+            if type(schema_data[req_key]) is list:
+                ...
             if schema_data[req_key] is not type(req_value):
                 error_details.append(
                     ErrorDetail(

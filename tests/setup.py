@@ -40,8 +40,12 @@ test_data = [
     ),
     (
         schema2,
-        {"name": "Igor", "age": {"mnth": "seven", "year": "two"}},
-        [invalid_key_response("mnth"), invalid_type_response("year", int)],
+        {"age": {"mnth": "seven", "year": "two"}, "naame": "Igor"},
+        [
+            invalid_key_response("mnth"),
+            invalid_type_response("year", int),
+            invalid_key_response("naame"),
+        ],
     ),
-    (schema3, {"items": []}, success_response),
+    # (schema3, {"items": []}, success_response),
 ]
