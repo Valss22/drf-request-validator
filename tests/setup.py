@@ -47,5 +47,10 @@ test_data = [
             invalid_key_response("naame"),
         ],
     ),
+    (
+        schema2,
+        {"name": "Roman", "age": 18},
+        [invalid_type_response("age", {"month": int, "year": int})],
+    )
     # (schema3, {"items": []}, success_response),
 ]

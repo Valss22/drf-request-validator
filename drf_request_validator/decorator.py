@@ -9,12 +9,23 @@ def validation_iteration(req_data: dict, schema_data: dict, error_details: list)
             error_details.append(ErrorDetail(key=req_key, msg=ErrorMessage.INVALID_KEY))
         else:
             if type(schema_data[req_key]) is dict:
-                validation_iteration(
-                    req_data[req_key], schema_data[req_key], error_details
-                )
-                continue
-            if type(schema_data[req_key]) is list:
-                ...
+                if type(req_data[req_key]) is dict:
+                    validation_iteration(
+                        req_data[req_key], schema_data[req_key], error_details
+                    )
+                    continue
+                else:
+                    error_details.append(
+                        ErrorDetail(
+                            key=req_key,
+                            msg=ErrorMessage.INVALID_TYPE,
+                            detail=f"type {schema_data[req_key]} is expected",
+                        )
+                    )
+                    continue
+            # if type(schema_data[req_key]) is list:
+            #     if type(schema_data[req_key][0]) is dict:
+            #         validation_iteration(req_data[req_key], )
             if schema_data[req_key] is not type(req_value):
                 error_details.append(
                     ErrorDetail(
