@@ -23,9 +23,6 @@ def validation_iteration(req_data: dict, schema_data: dict, error_details: list)
                         )
                     )
                     continue
-            # if type(schema_data[req_key]) is list:
-            #     if type(schema_data[req_key][0]) is dict:
-            #         validation_iteration(req_data[req_key], )
             if schema_data[req_key] is not type(req_value):
                 error_details.append(
                     ErrorDetail(
@@ -50,3 +47,42 @@ def request_validator(schema: dict):
         return inner
 
     return outer
+
+    # if type(schema_data[req_key]) is list:
+    #     if type(req_data[req_key]) is list:
+    #         for req_list_item in req_data[req_key]:
+    #             if type(schema_data[req_key][0]) is dict:
+    #                 if type(req_list_item) is dict:
+    #                     validation_iteration(
+    #                         req_list_item,
+    #                         schema_data[req_key][0],
+    #                         error_details,
+    #                     )
+    #                     continue
+    #                 else:
+    #                     error_details.append(
+    #                         ErrorDetail(
+    #                             key=req_key,
+    #                             msg=ErrorMessage.INVALID_TYPE,
+    #                             detail=f"type {schema_data[req_key]} is expected",
+    #                         )
+    #                     )
+    #                     continue
+    #             else:
+    #                 if type(req_list_item) is not schema_data[req_key][0]:
+    #                     error_details.append(
+    #                         ErrorDetail(
+    #                             key=req_key,
+    #                             msg=ErrorMessage.INVALID_TYPE,
+    #                             detail=f"type {schema_data[req_key]} is expected",
+    #                         )
+    #                     )
+
+    #     else:
+    #         error_details.append(
+    #             ErrorDetail(
+    #                 key=req_key,
+    #                 msg=ErrorMessage.INVALID_TYPE,
+    #                 detail=f"type {schema_data[req_key]} is expected",
+    #             )
+    #         )
