@@ -28,7 +28,7 @@ def list_validation(req_data: list, schema_data: list, error_details: list):
                     ErrorDetail(
                         key="request.data",
                         msg=ErrorMessage.INVALID_TYPE,
-                        detail=f"type {schema_data[0]} is expected",
+                        detail=f"type {schema_data} is expected",
                     )
                 )
 
@@ -53,6 +53,11 @@ def dict_validation(req_data: dict, schema_data: dict, error_details: list):
                         )
                     )
                     continue
+
+            if type(schema_data[req_key]) is list:
+                list_validation(req_data[req_key], schema_data[req_key], error_details)
+                continue
+
             if schema_data[req_key] is not type(req_value):
                 error_details.append(
                     ErrorDetail(

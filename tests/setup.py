@@ -18,6 +18,8 @@ success_response = {"msg": "ok"}
 schema = {"name": str, "age": int}
 schema2 = {"name": str, "age": {"month": int, "year": int}}
 schema3 = [{"name": str, "age": int}]
+schema4 = [str]
+schema5 = {"items": [{"name": str, "age": int}]}
 
 test_data = [
     (schema, {"name": "Vlad", "age": 20}, success_response),
@@ -67,4 +69,7 @@ test_data = [
             invalid_type_response("age", int),
         ],
     ),
+    (schema4, ["a", "b"], success_response),
+    (schema4, ["a", 3], [invalid_type_response("request.data", schema4)]),
+    (schema5, {"items": [{"name": "Vladick", "age": 20}]}, success_response),
 ]
