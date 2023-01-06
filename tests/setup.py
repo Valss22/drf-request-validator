@@ -72,4 +72,14 @@ test_data = [
     (schema4, ["a", "b"], success_response),
     (schema4, ["a", 3], [invalid_type_response("request.data", schema4)]),
     (schema5, {"items": [{"name": "Vladick", "age": 20}]}, success_response),
+    (
+        schema5,
+        {"items": [{"nma": "Hui", "age": "dva"}]},
+        [invalid_key_response("nma"), invalid_type_response("age", int)],
+    ),
+    (
+        schema5,
+        {"items": {"nma": "Hui", "age": "dva"}},
+        [invalid_type_response("items", schema5["items"])],
+    ),
 ]
