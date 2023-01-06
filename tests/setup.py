@@ -57,4 +57,5 @@ test_data = [
         [{"name": "Vlad", "age": 20}, {"name": "Sergej", "age": 21}],
         success_response,
     ),
+    (schema3, {"name": "Dacha"}, [invalid_type_response("request.data", schema3)]),
 ]
