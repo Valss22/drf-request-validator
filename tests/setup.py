@@ -58,4 +58,13 @@ test_data = [
         success_response,
     ),
     (schema3, {"name": "Dacha"}, [invalid_type_response("request.data", schema3)]),
+    (
+        schema3,
+        [{"nme": "Vlad", "age": 20}, {"naame": "Sergej", "age": "twenty"}],
+        [
+            invalid_key_response("nme"),
+            invalid_key_response("naame"),
+            invalid_type_response("age", int),
+        ],
+    ),
 ]

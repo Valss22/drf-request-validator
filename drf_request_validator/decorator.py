@@ -16,6 +16,7 @@ def list_validation(req_data: list, schema_data: list, error_details: list):
             else:
                 error_details.append(
                     ErrorDetail(
+                        key="request.data",
                         msg=ErrorMessage.INVALID_TYPE,
                         detail=f"type {schema_data[0]} is expected",
                     )
