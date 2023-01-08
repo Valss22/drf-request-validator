@@ -3,19 +3,6 @@ from rest_framework.response import Response
 from drf_request_validator.types import ErrorMessage, ErrorDetail
 
 
-# def missing_key_validation(req_data: dict, schema_data: dict, error_details: list):
-#     invalid_keys = [error_detail["key"] for error_detail in error_details]
-#     print(invalid_keys)
-#     for schema_key in schema_data.keys():
-#         if schema_key not in req_data.keys() and schema_key not in invalid_keys:
-#             error_details.append(
-#                 ErrorDetail(
-#                     msg=ErrorMessage.MISSING_KEY,
-#                     detail=f"key '{schema_key}' is missing",
-#                 )
-#             )
-
-
 def list_validation(req_data: list, schema_data: list, error_details: list):
     for req_list_item in req_data:
         if type(schema_data[0]) is dict:
