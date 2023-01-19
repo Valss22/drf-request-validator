@@ -3,7 +3,12 @@ from rest_framework.response import Response
 from drf_request_validator.types import ErrorMessage, ErrorDetail
 
 
-def list_validation(req_data: list, schema_data: list, error_details: list):
+def list_validation(
+    req_data: list,
+    schema_data: list,
+    error_details: list,
+    key_error: str | None = None,
+):
     for req_list_item in req_data:
         if type(schema_data[0]) is dict:
             if type(req_list_item) is dict:
@@ -24,9 +29,10 @@ def list_validation(req_data: list, schema_data: list, error_details: list):
                 continue
         else:
             if type(req_list_item) is not schema_data[0]:
+
                 error_details.append(
                     ErrorDetail(
-                        key="request.data",
+                        key=key_error if key_error else "request.data",
                         msg=ErrorMessage.INVALID_TYPE,
                         detail=f"type {schema_data} is expected",
                     )
@@ -60,7 +66,7 @@ def dict_validation(req_data: dict, schema_data: dict, error_details: list):
             if type(schema_data[req_key]) is list:
                 if type(req_data[req_key]) is list:
                     list_validation(
-                        req_data[req_key], schema_data[req_key], error_details
+                        req_data[req_key], schema_data[req_key], error_details, req_key
                     )
                     continue
                 else:
