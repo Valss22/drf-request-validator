@@ -9,6 +9,7 @@ class BaseEnum(str, Enum):
 
 class ErrorMessage(BaseEnum):
     INVALID_KEY = "invalid key"
+    MISSING_KEY = "missing key"
     INVALID_TYPE = "invalid type"
 
 

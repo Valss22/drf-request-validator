@@ -34,9 +34,12 @@ def list_validation(req_data: list, schema_data: list, error_details: list):
 
 
 def dict_validation(req_data: dict, schema_data: dict, error_details: list):
+
     for req_key, req_value in req_data.items():
+
         if req_key not in list(schema_data.keys()):
             error_details.append(ErrorDetail(key=req_key, msg=ErrorMessage.INVALID_KEY))
+
         else:
             if type(schema_data[req_key]) is dict:
                 if type(req_data[req_key]) is dict:
@@ -85,10 +88,14 @@ def request_validator(schema: dict | list):
         def inner(request: Request):
 
             error_details: list[ErrorDetail] = []
+
             if type(request.data) is list and type(schema) is list:
                 list_validation(request.data, schema, error_details)
 
             elif type(request.data) is dict and type(schema) is dict:
+                if len(request.data) < len(schema):
+                    error_details.append(ErrorDetail(msg=ErrorMessage.MISSING_KEY))
+
                 dict_validation(request.data, schema, error_details)
 
             else:

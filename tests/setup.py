@@ -13,6 +13,10 @@ def invalid_type_response(key: str, expected_key_type) -> dict:
     }
 
 
+def missing_key_response() -> dict:
+    return {"msg": ErrorMessage.MISSING_KEY}
+
+
 success_response = {"msg": "ok"}
 
 schema = {"name": str, "age": int}
@@ -36,6 +40,8 @@ test_data = [
         {"naame": "Sergej", "agge": 20},
         [invalid_key_response("naame"), invalid_key_response("agge")],
     ),
+    (schema, {"name": "Valss", "age": 20, "extra": 1}, [invalid_key_response("extra")]),
+    (schema, {"name": "Rusick"}, [missing_key_response()]),
     (
         schema2,
         {"name": "Igor", "age": {"month": 7, "year": 2000}},
