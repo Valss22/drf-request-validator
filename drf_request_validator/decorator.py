@@ -37,6 +37,7 @@ def list_validation(
                         detail=f"type {schema_data} is expected",
                     )
                 )
+                break
 
 
 def dict_validation(req_data: dict, schema_data: dict, error_details: list):
