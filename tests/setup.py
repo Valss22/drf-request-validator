@@ -20,6 +20,7 @@ schema2 = {"name": str, "age": {"month": int, "year": int}}
 schema3 = [{"name": str, "age": int}]
 schema4 = [str]
 schema5 = {"items": [{"name": str, "age": int}]}
+schema6 = {"object": {"object": {"numbers": [int]}}}
 
 test_data = [
     (schema, {"name": "Vlad", "age": 20}, success_response),
@@ -81,5 +82,16 @@ test_data = [
         schema5,
         {"items": {"nma": "Hui", "age": "dva"}},
         [invalid_type_response("items", schema5["items"])],
+    ),
+    (schema6, {"objec": {"object": [1, 2, 3]}}, [invalid_key_response("objec")]),
+    (
+        schema6,
+        {"object": {"object": [1, 2, 3]}},
+        [invalid_type_response("object", {"numbers": [int]})],
+    ),
+    (
+        schema6,
+        {"object": {"object": {"numbers": ["a", "b"]}}},
+        [invalid_type_response("numbers", [int])],
     ),
 ]
